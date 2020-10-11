@@ -1,7 +1,6 @@
 package com.example.androidarchitecturedemo.dummy
 
-import java.util.ArrayList
-import java.util.HashMap
+import java.util.*
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -21,7 +20,7 @@ object DummyContent {
      */
     val ITEM_MAP: MutableMap<String, DummyItem> = HashMap()
 
-    private val COUNT = 10
+    private val COUNT = 20
 
     init {
         // Add some sample items.
