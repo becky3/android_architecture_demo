@@ -1,23 +1,22 @@
-package com.example.androidarchitecturedemo.repository
+package com.example.androidarchitecturedemo.model
 
-import com.example.androidarchitecturedemo.api.GithubApiSessionClient
 import com.example.androidarchitecturedemo.entity.GitRepositoryInfo
+import com.example.androidarchitecturedemo.repository.GitSearchRepository
 
-class GitSearchRepository {
+class GithubModel {
 
-    private val githubApiSessionClient = GithubApiSessionClient()
+    private val gitSearchRepository = GitSearchRepository()
 
     fun searchRepositories(
         searchWord: String,
         onSuccess: (List<GitRepositoryInfo>) -> Unit,
         onFailure: () -> Unit
     ) {
-
-        githubApiSessionClient.searchRepositories(
+        gitSearchRepository.searchRepositories(
             searchWord,
             onSuccess,
             onFailure
         )
-
     }
+
 }

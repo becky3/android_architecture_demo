@@ -1,11 +1,11 @@
-package com.example.androidarchitecturedemo
+package com.example.androidarchitecturedemo.fragment
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
+import androidx.recyclerview.widget.RecyclerView
+import com.example.androidarchitecturedemo.R
 import com.example.androidarchitecturedemo.dummy.DummyContent2.DummyItem
 
 /**
