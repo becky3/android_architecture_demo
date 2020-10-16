@@ -13,7 +13,11 @@ class GithubApiSessionClient {
     private val apiService = OkHttpService.shared
     private val targetUrl = "https://api.github.com/search/repositories"
 
-    fun searchRepositories(searchWord: String) {
+    fun searchRepositories(
+        searchWord: String,
+        onSuccess: (List<GitRepositoryInfo>) -> Unit,
+        onFailure: () -> Unit
+    ) {
 
         val request = Request.Builder().url("${targetUrl}?sort=stars&q=${searchWord}").build()
         val call = apiService.okHttpClient.newCall(request)
@@ -22,16 +26,21 @@ class GithubApiSessionClient {
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
 
-                val body = response.body?.string() ?: return // TODO: failure に落とす
+                val body = response.body?.string()
+                if (body == null) {
+                    onFailure()
+                    return
+                }
+
                 val jsonObject = JSONObject(body)
                 println(jsonObject.toString(4))
                 val list = GitRepositoryInfo.createListFromJson(jsonObject)
-                println(list)
-
+                onSuccess(list)
             }
 
             override fun onFailure(call: Call, e: IOException) {
                 println(e)
+                onFailure()
             }
         })
 

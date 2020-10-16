@@ -1,11 +1,11 @@
-package com.example.androidarchitecturedemo
+package com.example.androidarchitecturedemo.fragment
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
+import androidx.recyclerview.widget.RecyclerView
+import com.example.androidarchitecturedemo.R
 import com.example.androidarchitecturedemo.dummy.DummyContent2.DummyItem
 
 /**
@@ -31,8 +31,8 @@ class MyItemRecyclerViewAdapter2(
     override fun getItemCount(): Int = values.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val idView: TextView = view.findViewById(R.id.item_number)
-        val contentView: TextView = view.findViewById(R.id.content)
+        val idView: TextView = view.findViewById(R.id.text_view_title)
+        val contentView: TextView = view.findViewById(R.id.text_view_description)
 
         override fun toString(): String {
             return super.toString() + " '" + contentView.text + "'"
