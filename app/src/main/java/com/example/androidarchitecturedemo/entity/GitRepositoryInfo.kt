@@ -9,11 +9,8 @@ class GitRepositoryInfo(
     val description: String,
     val url: URL,
     val starCount: Int,
-    val iconUrl: URL
+    val avatarUrl: URL
 ) {
-
-    val imageUrl: String
-        get() = "https://github.com/${name}.png"
 
     companion object {
         fun createListFromJson(jsonObject: JSONObject): List<GitRepositoryInfo> {
@@ -24,6 +21,8 @@ class GitRepositoryInfo(
 
             (0 until items.length()).forEach { i ->
                 val item = items.getJSONObject(i)
+                val ownerInfo = item.getJSONObject("owner")
+                val avatarUrl = URL(ownerInfo.getString("avatar_url"))
                 list.add(
                     GitRepositoryInfo(
                         item.getInt("id"),
@@ -31,7 +30,7 @@ class GitRepositoryInfo(
                         item.getString("description"),
                         URL(item.getString("html_url")),
                         item.getInt("stargazers_count"),
-                        URL(item.getString("html_url"))
+                        avatarUrl
                     )
                 )
             }
