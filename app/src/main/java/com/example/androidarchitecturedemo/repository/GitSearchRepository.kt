@@ -9,14 +9,12 @@ class GitSearchRepository {
 
     fun searchRepositories(
         searchWord: String,
-        onSuccess: (List<GitRepositoryInfo>) -> Unit,
-        onFailure: () -> Unit
+        result: ApiResult<List<GitRepositoryInfo>>
     ) {
 
-        githubApiSessionClient.searchRepositories(
+        return githubApiSessionClient.searchRepositories(
             searchWord,
-            onSuccess,
-            onFailure
+            result
         )
 
     }

@@ -1,6 +1,7 @@
 package com.example.androidarchitecturedemo.model
 
 import com.example.androidarchitecturedemo.entity.GitRepositoryInfo
+import com.example.androidarchitecturedemo.repository.ApiResult
 import com.example.androidarchitecturedemo.repository.GitSearchRepository
 
 class GithubModel {
@@ -9,13 +10,11 @@ class GithubModel {
 
     fun searchRepositories(
         searchWord: String,
-        onSuccess: (List<GitRepositoryInfo>) -> Unit,
-        onFailure: () -> Unit
+        result: ApiResult<List<GitRepositoryInfo>>
     ) {
         gitSearchRepository.searchRepositories(
             searchWord,
-            onSuccess,
-            onFailure
+            result
         )
     }
 
