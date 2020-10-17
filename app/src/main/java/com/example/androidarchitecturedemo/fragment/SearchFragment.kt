@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,6 +21,7 @@ class SearchFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchView: SearchView
+    private lateinit var recyclerViewAdapter: GitRepositoryInfoRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +43,7 @@ class SearchFragment : Fragment() {
     private fun linkViews(layout: ConstraintLayout) {
         recyclerView = layout.findViewById(R.id.list)
         searchView = layout.findViewById(R.id.searchView)
+
     }
 
     private fun setupViews() {
@@ -55,6 +58,18 @@ class SearchFragment : Fragment() {
             }
         })
 
+        with(recyclerView) {
+            layoutManager = GridLayoutManager(context, 1)
+            adapter = GitRepositoryInfoRecyclerViewAdapter()
+        }
+        recyclerViewAdapter = recyclerView.adapter as GitRepositoryInfoRecyclerViewAdapter
+        
+        recyclerViewAdapter.itemClickListener = object:GitRepositoryInfoRecyclerViewAdapter.OnItemClickListener{
+            override fun onItemClickListener(item: GitRepositoryInfo) {
+                Toast.makeText(context, "${item.name}がタップされました", Toast.LENGTH_LONG).show()
+            }
+        }
+
     }
 
     private fun bindViewModel() {
@@ -67,10 +82,7 @@ class SearchFragment : Fragment() {
 
     private fun updateList(list: List<GitRepositoryInfo>) {
 
-        with(recyclerView) {
-            layoutManager = GridLayoutManager(context, 1)
-            adapter = GitRepositoryInfoRecyclerViewAdapter(list)
-        }
+        recyclerViewAdapter.updateItems(list)
 
     }
 }
