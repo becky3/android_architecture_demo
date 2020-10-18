@@ -17,6 +17,9 @@ class DetailActivity : AppCompatActivity() {
         RepositoryInfo("RepositoryInfo")
     }
 
+//    private val viewModel: DetailViewModel by viewModels()
+
+
     private val viewModel: DetailViewModel by viewModels()
 
     private lateinit var toolbar: Toolbar
@@ -39,6 +42,7 @@ class DetailActivity : AppCompatActivity() {
         if (menu == null) { return false }
         menuInflater.inflate(R.menu.detail_menu, menu)
         favoriteMenuItem = menu.findItem(R.id.favorite)
+        viewModel.onCreateOptionsMenu()
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -66,6 +70,8 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun bindViewModel() {
+
+        viewModel.setup(repositoryInfo.id)
 
         viewModel.isFavorite.observe(this) {
             setFavorite(it)
