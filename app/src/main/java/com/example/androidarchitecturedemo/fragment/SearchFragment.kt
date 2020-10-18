@@ -57,6 +57,7 @@ class SearchFragment : Fragment() {
             }
             override fun onQueryTextSubmit(query: String): Boolean {
                 viewModel.onQueryTextSubmit(query)
+                searchView.clearFocus()
                 return true
             }
         })
