@@ -11,8 +11,17 @@ import com.example.androidarchitecturedemo.R
 import com.example.androidarchitecturedemo.entity.GitRepositoryInfo
 
 class GitRepositoryInfoRecyclerViewAdapter(
-    private val values: List<GitRepositoryInfo>
+
 ) : RecyclerView.Adapter<GitRepositoryInfoRecyclerViewAdapter.ViewHolder>() {
+
+    var itemClickListener: OnItemClickListener? = null
+
+    private var items: List<GitRepositoryInfo> = emptyList()
+
+    fun updateItems(items: List<GitRepositoryInfo>) {
+        this.items = items
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -21,14 +30,18 @@ class GitRepositoryInfoRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
+        val item = items[position]
         val context = holder.imageView.context
         Glide.with(context).load(item.avatarUrl.toString()).into(holder.imageView);
         holder.textViewTitle.text = item.name
         holder.textViewDescription.text = item.description
+
+        holder.itemView.setOnClickListener {
+            itemClickListener?.onItemClickListener(item)
+        }
     }
 
-    override fun getItemCount(): Int = values.size
+    override fun getItemCount(): Int = items.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.image_view)
@@ -38,5 +51,9 @@ class GitRepositoryInfoRecyclerViewAdapter(
         override fun toString(): String {
             return super.toString() + " '" + textViewDescription.text + "'"
         }
+    }
+
+    interface OnItemClickListener{
+        fun onItemClickListener(item: GitRepositoryInfo)
     }
 }

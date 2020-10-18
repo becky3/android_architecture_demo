@@ -1,16 +1,17 @@
 package com.example.androidarchitecturedemo.entity
 
 import org.json.JSONObject
+import java.io.Serializable
 import java.net.URL
 
-class GitRepositoryInfo(
+data class GitRepositoryInfo(
     val id: Int,
     val name: String,
     val description: String,
     val url: URL,
     val starCount: Int,
     val avatarUrl: URL
-) {
+): Serializable {
 
     companion object {
         fun createListFromJson(jsonObject: JSONObject): List<GitRepositoryInfo> {
